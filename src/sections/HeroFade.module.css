@@ -1,0 +1,317 @@
+.hero {
+  background: #f7f5ef;
+}
+
+/* text reveal */
+.fade {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.997);
+  filter: blur(0.18px);
+  transition:
+    opacity 880ms cubic-bezier(0.22, 0.1, 0.28, 1),
+    transform 1180ms cubic-bezier(0.22, 0.1, 0.28, 1),
+    filter 1080ms cubic-bezier(0.22, 0.1, 0.28, 1);
+  will-change: opacity, transform, filter;
+}
+
+.in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+.d1 {
+  transition-delay: 90ms;
+}
+
+.d2 {
+  transition-delay: 190ms;
+}
+
+.d3 {
+  transition-delay: 320ms;
+}
+
+.d4 {
+  transition-delay: 470ms;
+}
+
+/* hero image */
+.heroImage {
+  opacity: 0;
+  transform: scale(1.02);
+  filter: brightness(0.94) saturate(0.92) contrast(1.02);
+  transition:
+    opacity 980ms cubic-bezier(0.22, 0.1, 0.28, 1),
+    transform 1600ms cubic-bezier(0.22, 0.1, 0.28, 1),
+    filter 1600ms cubic-bezier(0.22, 0.1, 0.28, 1);
+  will-change: opacity, transform, filter;
+}
+
+.heroImageIn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* overlays */
+.sky {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(123, 156, 174, 0.18) 0%,
+    rgba(157, 191, 195, 0.09) 16%,
+    rgba(255, 253, 248, 0) 34%
+  );
+}
+
+.seaAir {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 48% 46%,
+      rgba(157, 191, 195, 0.08) 0%,
+      rgba(157, 191, 195, 0) 56%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(157, 191, 195, 0.045) 0%,
+      rgba(157, 191, 195, 0) 44%
+    );
+  mix-blend-mode: soft-light;
+}
+
+.textHalo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 74% 28%,
+    rgba(255, 253, 248, 0.12) 0%,
+    rgba(255, 253, 248, 0.055) 18%,
+    rgba(255, 253, 248, 0) 42%
+  );
+}
+
+.depth {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(18, 32, 34, 0.035) 0%,
+      rgba(18, 32, 34, 0) 28%,
+      rgba(18, 32, 34, 0.075) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(18, 32, 34, 0.14) 0%,
+      rgba(18, 32, 34, 0.06) 18%,
+      rgba(18, 32, 34, 0) 46%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(18, 32, 34, 0.045) 0%,
+      rgba(18, 32, 34, 0.015) 24%,
+      rgba(18, 32, 34, 0) 46%
+    );
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    rgba(18, 32, 34, 0) 58%,
+    rgba(18, 32, 34, 0.045) 82%,
+    rgba(18, 32, 34, 0.095) 100%
+  );
+}
+
+/* svg grain overlay */
+.grain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.045;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+/* barely-there frame */
+.frame {
+  position: absolute;
+  inset: 14px;
+  border-radius: 24px;
+  border: 1px solid rgba(32, 63, 65, 0.06);
+  box-shadow:
+    0 1px 0 rgba(255, 253, 248, 0.2),
+    0 22px 60px rgba(18, 32, 34, 0.1);
+  pointer-events: none;
+}
+
+/* scroll veil */
+.scrollVeil {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(18, 32, 34, 0) 0%,
+    rgba(18, 32, 34, 0.05) 52%,
+    rgba(18, 32, 34, 0.12) 100%
+  );
+}
+
+/* readable ink */
+.ink {
+  text-shadow:
+    0 1px 0 rgba(255, 253, 248, 0.18),
+    0 18px 46px rgba(20, 36, 38, 0.12);
+}
+
+.inkSoft {
+  text-shadow:
+    0 1px 0 rgba(255, 253, 248, 0.12),
+    0 16px 40px rgba(20, 36, 38, 0.09);
+}
+
+.dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(216, 199, 173, 0.7);
+}
+
+/* CTA */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: "Noto Sans JP", system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: rgba(29, 41, 40, 0.84);
+  transition: color 520ms cubic-bezier(0.22, 0.1, 0.28, 1);
+}
+
+.cta:hover {
+  color: rgba(29, 41, 40, 1);
+}
+
+.ctaLine {
+  height: 1px;
+  width: 44px;
+  background: rgba(29, 41, 40, 0.26);
+  transition:
+    width 520ms cubic-bezier(0.22, 0.1, 0.28, 1),
+    background 520ms cubic-bezier(0.22, 0.1, 0.28, 1);
+}
+
+.cta:hover .ctaLine {
+  width: 72px;
+  background: rgba(29, 41, 40, 0.46);
+}
+
+/* tablet */
+@media (max-width: 1024px) {
+  .frame {
+    inset: 10px;
+    border-radius: 20px;
+  }
+
+  .textHalo {
+    background: radial-gradient(
+      circle at 70% 24%,
+      rgba(255, 253, 248, 0.13) 0%,
+      rgba(255, 253, 248, 0.055) 20%,
+      rgba(255, 253, 248, 0) 45%
+    );
+  }
+}
+
+/* mobile */
+@media (max-width: 640px) {
+  .heroImage {
+    object-position: 42% 50%;
+    filter: brightness(0.92) saturate(0.9) contrast(1.03);
+  }
+
+  .sky {
+    background: linear-gradient(
+      180deg,
+      rgba(123, 156, 174, 0.14) 0%,
+      rgba(157, 191, 195, 0.075) 18%,
+      rgba(255, 253, 248, 0) 38%
+    );
+  }
+
+  .textHalo {
+    background: radial-gradient(
+      circle at 70% 23%,
+      rgba(255, 253, 248, 0.14) 0%,
+      rgba(255, 253, 248, 0.06) 18%,
+      rgba(255, 253, 248, 0) 44%
+    );
+  }
+
+  .depth {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(18, 32, 34, 0.04) 0%,
+        rgba(18, 32, 34, 0) 30%,
+        rgba(18, 32, 34, 0.09) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgba(18, 32, 34, 0.17) 0%,
+        rgba(18, 32, 34, 0.08) 20%,
+        rgba(18, 32, 34, 0) 48%
+      );
+  }
+
+  .vignette {
+    background: radial-gradient(
+      circle at center,
+      rgba(18, 32, 34, 0) 54%,
+      rgba(18, 32, 34, 0.04) 80%,
+      rgba(18, 32, 34, 0.09) 100%
+    );
+  }
+
+  .frame {
+    inset: 8px;
+    border-radius: 18px;
+  }
+
+  .grain {
+    opacity: 0.035;
+  }
+
+  .ctaLine {
+    width: 38px;
+  }
+
+  .cta:hover .ctaLine {
+    width: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade,
+  .heroImage {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,208 @@
+/* =========================
+   SectionReveal.module.css
+   “Vila Coral” tuned
+   - tilt is variable-based
+   - memory edge blur is center-clear
+   - reduced-motion safe
+   - scoped custom properties
+========================= */
+
+/* -------------------------
+   Shared tokens
+------------------------- */
+.reveal,
+.imageSoft,
+.imageFlat {
+  --reveal-ease: cubic-bezier(0.22, 0.1, 0.28, 1);
+}
+
+/* -------------------------
+   Text reveal
+------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.998);
+  filter: blur(0.14px);
+
+  transition:
+    opacity 860ms var(--reveal-ease),
+    transform 1160ms var(--reveal-ease),
+    filter 1080ms var(--reveal-ease);
+
+  will-change: opacity, transform, filter;
+}
+
+.in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+/* delays */
+.d1 { transition-delay: 80ms; }
+.d2 { transition-delay: 180ms; }
+.d3 { transition-delay: 300ms; }
+.d4 { transition-delay: 420ms; }
+.d5 { transition-delay: 540ms; }
+.d6 { transition-delay: 660ms; }
+
+/* -------------------------
+   Image reveal
+   IMPORTANT:
+   rotate is driven by --tilt,
+   so tilt classes can be applied to the SAME element.
+------------------------- */
+.imageSoft,
+.imageFlat {
+  --tilt: 0deg;
+
+  opacity: 0;
+  transform: translate3d(0, 26px, 0) scale(1.015) rotate(var(--tilt));
+  filter: blur(0.24px);
+
+  transition:
+    opacity 1100ms var(--reveal-ease),
+    transform 1500ms var(--reveal-ease),
+    filter 1300ms var(--reveal-ease);
+
+  will-change: opacity, transform, filter;
+}
+
+.imageIn,
+.imageFlatIn {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1) rotate(var(--tilt));
+  filter: blur(0);
+}
+
+/* tilt */
+.imageTiltLeft {
+  --tilt: -2deg;
+}
+
+.imageTiltRight {
+  --tilt: 2deg;
+}
+
+/* stronger stillness option */
+.imageStill {
+  --tilt: 0deg;
+  transform: translate3d(0, 18px, 0) scale(1.008) rotate(var(--tilt));
+  filter: blur(0.16px);
+}
+
+/* -------------------------
+   Readable ink
+   no fog, only quiet depth
+------------------------- */
+.ink {
+  text-shadow:
+    0 1px 0 rgba(255, 253, 248, 0.20),
+    0 18px 46px rgba(20, 36, 38, 0.12);
+}
+
+.inkSoft {
+  text-shadow:
+    0 1px 0 rgba(255, 253, 248, 0.16),
+    0 16px 40px rgba(20, 36, 38, 0.09);
+}
+
+/* -------------------------
+   Memory frame
+   Edge blur only.
+   Center stays clear.
+
+   Use:
+   style={{ "--memory-image": "url('/images/xxx.jpeg')" }}
+------------------------- */
+.memoryFrame {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.memoryMain {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* blurred edge layer */
+.memoryEdgeBlur {
+  position: absolute;
+  inset: -2%;
+  z-index: 2;
+  pointer-events: none;
+
+  background-image: var(--memory-image);
+  background-size: cover;
+  background-position: center;
+
+  filter: blur(10px) saturate(0.92) brightness(1.02);
+  transform: scale(1.08);
+  opacity: 0.52;
+
+  -webkit-mask-image: radial-gradient(
+    circle at center,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.10) 70%,
+    rgba(0, 0, 0, 0.55) 82%,
+    rgba(0, 0, 0, 1) 100%
+  );
+
+  mask-image: radial-gradient(
+    circle at center,
+    transparent 0%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.10) 70%,
+    rgba(0, 0, 0, 0.55) 82%,
+    rgba(0, 0, 0, 1) 100%
+  );
+}
+
+/* subtle veil */
+.memoryVeil {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 253, 248, 0) 62%,
+      rgba(255, 253, 248, 0.045) 84%,
+      rgba(255, 253, 248, 0.11) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 253, 248, 0.02) 0%,
+      rgba(255, 253, 248, 0) 30%,
+      rgba(18, 32, 34, 0.045) 100%
+    );
+}
+
+/* -------------------------
+   Reduced motion
+------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .imageSoft,
+  .imageFlat,
+  .imageStill {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  .memoryEdgeBlur,
+  .memoryVeil {
+    display: none;
+  }
+}
