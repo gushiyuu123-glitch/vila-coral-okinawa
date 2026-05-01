@@ -2,17 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./NavSp.module.css";
 
 const LINKS = [
-  { id: "stay", label: "STAY" },
   { id: "scene", label: "SCENE" },
-  { id: "plans", label: "PLANS" },
   { id: "access", label: "ACCESS" },
+  { id: "stay", label: "STAY" },
+  { id: "plans", label: "PLANS" },
 ];
 
 function NavSp() {
   const navRef = useRef(null);
   const [show, setShow] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeId, setActiveId] = useState("stay");
+  const [activeId, setActiveId] = useState("scene");
 
   useEffect(() => {
     const timer = window.setTimeout(() => setShow(true), 180);
@@ -26,20 +26,25 @@ function NavSp() {
       navRef.current?.style.setProperty("--nav-fill", progress.toFixed(3));
       setScrolled(y > 24);
 
-      let current = LINKS[0].id;
+      const threshold = window.innerHeight * 0.38;
 
-      LINKS.forEach((link) => {
+      const currentSection = LINKS.map((link) => {
         const el = document.getElementById(link.id);
-        if (!el) return;
+        if (!el) return null;
 
         const rect = el.getBoundingClientRect();
 
-        if (rect.top <= window.innerHeight * 0.38) {
-          current = link.id;
-        }
-      });
+        return {
+          id: link.id,
+          top: rect.top,
+        };
+      })
+        .filter((item) => item && item.top <= threshold)
+        .sort((a, b) => b.top - a.top)[0];
 
-      setActiveId(current);
+      if (currentSection) {
+        setActiveId(currentSection.id);
+      }
     };
 
     update();
@@ -92,9 +97,9 @@ function NavSp() {
         </a>
 
         <a
-          href="#contact"
+          href="#plans"
           className={styles.cta}
-          onClick={(event) => scrollToSection(event, "contact")}
+          onClick={(event) => scrollToSection(event, "plans")}
         >
           <span className={styles.ctaText}>RESERVE</span>
           <span className={styles.ctaLine} aria-hidden="true" />
@@ -110,7 +115,7 @@ function NavSp() {
               key={link.id}
               href={`#${link.id}`}
               className={`${styles.link} ${active ? styles.active : ""}`}
-              aria-current={active ? "true" : undefined}
+              aria-current={active ? "page" : undefined}
               onClick={(event) => scrollToSection(event, link.id)}
             >
               <span className={styles.linkDot} aria-hidden="true" />

@@ -13,18 +13,33 @@ import FooterSp from "./sections/sp/FooterSp";
 
 export default function MobileSite() {
   return (
-    <div>
+    <div id="top">
       <NavSp />
+
       <HeroSp />
-      <InterludeSp />
-      <ConceptSp />
-      <RoomSp />
-      <ExperienceSp />
-      <GallerySp />
-      <LocationSp />
-      <StaySp />
+
+      <div id="scene">
+        <InterludeSp />
+        <ConceptSp />
+        <RoomSp />
+        <ExperienceSp />
+        <GallerySp />
+      </div>
+
+      <div id="access">
+        <LocationSp />
+      </div>
+
+      <div id="stay">
+        <StaySp />
+      </div>
+
       <GuestNotesSp />
-      <ReservationSp />
+
+      <div id="plans">
+        <ReservationSp />
+      </div>
+
       <FooterSp />
     </div>
   );
